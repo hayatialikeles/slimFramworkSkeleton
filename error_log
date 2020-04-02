@@ -1,0 +1,80 @@
+[29-Sep-2019 23:48:32 UTC] Slim Application Error:
+Type: FastRoute\BadRouteException
+Message: Cannot register two routes matching &quot;/drivers/name&quot; for method &quot;POST&quot;
+File: /home/oldukcay/public_html/sefere/vendor/nikic/fast-route/src/DataGenerator/RegexBasedAbstract.php
+Line: 86
+Trace: #0 /home/oldukcay/public_html/sefere/vendor/nikic/fast-route/src/DataGenerator/RegexBasedAbstract.php(30): FastRoute\DataGenerator\RegexBasedAbstract->addStaticRoute('POST', Array, 'route32')
+#1 /home/oldukcay/public_html/sefere/vendor/nikic/fast-route/src/RouteCollector.php(44): FastRoute\DataGenerator\RegexBasedAbstract->addRoute('POST', Array, 'route32')
+#2 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/Router.php(229): FastRoute\RouteCollector->addRoute(Array, '/drivers/name', 'route32')
+#3 /home/oldukcay/public_html/sefere/vendor/nikic/fast-route/src/functions.php(25): Slim\Router->Slim\{closure}(Object(FastRoute\RouteCollector))
+#4 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/Router.php(241): FastRoute\simpleDispatcher(Object(Closure), Array)
+#5 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/Router.php(193): Slim\Router->createDispatcher()
+#6 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/App.php(578): Slim\Router->dispatch(Object(Slim\Http\Request))
+#7 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/App.php(497): Slim\App->dispatchRouterAndPrepareRoute(Object(Slim\Http\Request), Object(Slim\Router))
+#8 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/MiddlewareAwareTrait.php(117): Slim\App->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#9 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/App.php(392): Slim\App->callMiddlewareStack(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#10 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/App.php(297): Slim\App->process(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#11 /home/oldukcay/public_html/sefere/index.php(11): Slim\App->run()
+#12 {main}
+View in rendered output by enabling the "displayErrorDetails" setting.
+
+[02-Oct-2019 23:55:45 Europe/Istanbul] Slim Application Error:
+Type: FastRoute\BadRouteException
+Message: Cannot register two routes matching &quot;/products&quot; for method &quot;POST&quot;
+File: /home/oldukcay/public_html/sefere/vendor/nikic/fast-route/src/DataGenerator/RegexBasedAbstract.php
+Line: 86
+Trace: #0 /home/oldukcay/public_html/sefere/vendor/nikic/fast-route/src/DataGenerator/RegexBasedAbstract.php(30): FastRoute\DataGenerator\RegexBasedAbstract->addStaticRoute('POST', Array, 'route14')
+#1 /home/oldukcay/public_html/sefere/vendor/nikic/fast-route/src/RouteCollector.php(44): FastRoute\DataGenerator\RegexBasedAbstract->addRoute('POST', Array, 'route14')
+#2 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/Router.php(229): FastRoute\RouteCollector->addRoute(Array, '/products', 'route14')
+#3 /home/oldukcay/public_html/sefere/vendor/nikic/fast-route/src/functions.php(25): Slim\Router->Slim\{closure}(Object(FastRoute\RouteCollector))
+#4 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/Router.php(241): FastRoute\simpleDispatcher(Object(Closure), Array)
+#5 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/Router.php(193): Slim\Router->createDispatcher()
+#6 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/App.php(578): Slim\Router->dispatch(Object(Slim\Http\Request))
+#7 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/App.php(497): Slim\App->dispatchRouterAndPrepareRoute(Object(Slim\Http\Request), Object(Slim\Router))
+#8 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/MiddlewareAwareTrait.php(117): Slim\App->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#9 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/App.php(392): Slim\App->callMiddlewareStack(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#10 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/App.php(297): Slim\App->process(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#11 /home/oldukcay/public_html/sefere/index.php(11): Slim\App->run()
+#12 {main}
+View in rendered output by enabling the "displayErrorDetails" setting.
+
+[15-Oct-2019 12:14:39 Europe/Istanbul] Slim Application Error:
+Type: FastRoute\BadRouteException
+Message: Cannot register two routes matching &quot;/vehicle/add&quot; for method &quot;POST&quot;
+File: /home/oldukcay/public_html/sefere/vendor/nikic/fast-route/src/DataGenerator/RegexBasedAbstract.php
+Line: 86
+Trace: #0 /home/oldukcay/public_html/sefere/vendor/nikic/fast-route/src/DataGenerator/RegexBasedAbstract.php(30): FastRoute\DataGenerator\RegexBasedAbstract->addStaticRoute('POST', Array, 'route66')
+#1 /home/oldukcay/public_html/sefere/vendor/nikic/fast-route/src/RouteCollector.php(44): FastRoute\DataGenerator\RegexBasedAbstract->addRoute('POST', Array, 'route66')
+#2 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/Router.php(229): FastRoute\RouteCollector->addRoute(Array, '/vehicle/add', 'route66')
+#3 /home/oldukcay/public_html/sefere/vendor/nikic/fast-route/src/functions.php(25): Slim\Router->Slim\{closure}(Object(FastRoute\RouteCollector))
+#4 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/Router.php(241): FastRoute\simpleDispatcher(Object(Closure), Array)
+#5 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/Router.php(193): Slim\Router->createDispatcher()
+#6 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/App.php(578): Slim\Router->dispatch(Object(Slim\Http\Request))
+#7 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/App.php(497): Slim\App->dispatchRouterAndPrepareRoute(Object(Slim\Http\Request), Object(Slim\Router))
+#8 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/MiddlewareAwareTrait.php(117): Slim\App->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#9 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/App.php(392): Slim\App->callMiddlewareStack(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#10 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/App.php(297): Slim\App->process(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#11 /home/oldukcay/public_html/sefere/index.php(11): Slim\App->run()
+#12 {main}
+View in rendered output by enabling the "displayErrorDetails" setting.
+
+[15-Oct-2019 12:15:22 Europe/Istanbul] Slim Application Error:
+Type: FastRoute\BadRouteException
+Message: Cannot register two routes matching &quot;/vehicle/add&quot; for method &quot;POST&quot;
+File: /home/oldukcay/public_html/sefere/vendor/nikic/fast-route/src/DataGenerator/RegexBasedAbstract.php
+Line: 86
+Trace: #0 /home/oldukcay/public_html/sefere/vendor/nikic/fast-route/src/DataGenerator/RegexBasedAbstract.php(30): FastRoute\DataGenerator\RegexBasedAbstract->addStaticRoute('POST', Array, 'route65')
+#1 /home/oldukcay/public_html/sefere/vendor/nikic/fast-route/src/RouteCollector.php(44): FastRoute\DataGenerator\RegexBasedAbstract->addRoute('POST', Array, 'route65')
+#2 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/Router.php(229): FastRoute\RouteCollector->addRoute(Array, '/vehicle/add', 'route65')
+#3 /home/oldukcay/public_html/sefere/vendor/nikic/fast-route/src/functions.php(25): Slim\Router->Slim\{closure}(Object(FastRoute\RouteCollector))
+#4 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/Router.php(241): FastRoute\simpleDispatcher(Object(Closure), Array)
+#5 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/Router.php(193): Slim\Router->createDispatcher()
+#6 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/App.php(578): Slim\Router->dispatch(Object(Slim\Http\Request))
+#7 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/App.php(497): Slim\App->dispatchRouterAndPrepareRoute(Object(Slim\Http\Request), Object(Slim\Router))
+#8 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/MiddlewareAwareTrait.php(117): Slim\App->__invoke(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#9 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/App.php(392): Slim\App->callMiddlewareStack(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#10 /home/oldukcay/public_html/sefere/vendor/slim/slim/Slim/App.php(297): Slim\App->process(Object(Slim\Http\Request), Object(Slim\Http\Response))
+#11 /home/oldukcay/public_html/sefere/index.php(11): Slim\App->run()
+#12 {main}
+View in rendered output by enabling the "displayErrorDetails" setting.
+
