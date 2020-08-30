@@ -32,7 +32,7 @@ class db extends general
         }
      }
 
-    public function query_name_string($sql){
+    public function queryNameString($sql){
         try{
             $get_row = $this->connection()->prepare($sql);
             $get_row->execute();
@@ -68,7 +68,7 @@ class db extends general
             return null;
         }
      }
-    public function getSingleCell($sql,$paramters){
+    public function getTableSingleRow($sql,$paramters){
         try{
 
             $statement = $this->connection()->prepare($sql);
