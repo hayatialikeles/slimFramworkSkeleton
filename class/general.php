@@ -1,6 +1,10 @@
 <?php 
 class general 
 {
+    public function getPageInProductCount(){
+        return 30;
+     }
+
     public function returnResult($result,$message,$response,$state=false,$statusCode=200){
         return $response
             ->withStatus($statusCode)
@@ -9,7 +13,7 @@ class general
                 array(
                     "state"=>$state,
                     "message"=>$message,
-                    $result!=null && "data"=>$result 
+                    "data"=>$result
                 ));
         }
     
@@ -17,7 +21,7 @@ class general
     public function GenerateToken($Lenght=256){
         return bin2hex(openssl_random_pseudo_bytes($Lenght));
      }
-    public function uploadFile($Image,$baseUrl="assets/",$fileType=["jpg","jpeg","png"],$fileSize=500000){
+    public function uploadFile($Image,$baseUrl,$fileType=["jpg","jpeg","png","gif"],$fileSize=5000000){
         $target_dir = $baseUrl;
         $target_file = $target_dir .$this->GenerateToken(30).basename($Image["name"]);
         $uploadOk = 1;
@@ -57,5 +61,15 @@ class general
             }
         }
      }
+    public function passwordHash($pass){
+         return md5(md5(md5(md5($pass))));
+     }
+    public function deleteFile($fileRoad){
+        if(file_exists($fileRoad))
+        {
+            unlink($fileRoad);
+        }
+    }
+   
 
 }

@@ -26,6 +26,7 @@ class ComposerStaticInit1467e4093cf33dd3b51d4ab9e76d0da9
         ),
         'F' => 
         array (
+            'Firebase\\JWT\\' => 13,
             'FastRoute\\' => 10,
         ),
     );
@@ -47,6 +48,10 @@ class ComposerStaticInit1467e4093cf33dd3b51d4ab9e76d0da9
         array (
             0 => __DIR__ . '/..' . '/container-interop/container-interop/src/Interop/Container',
         ),
+        'Firebase\\JWT\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
+        ),
         'FastRoute\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/fast-route/src',
@@ -63,12 +68,17 @@ class ComposerStaticInit1467e4093cf33dd3b51d4ab9e76d0da9
         ),
     );
 
+    public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit1467e4093cf33dd3b51d4ab9e76d0da9::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit1467e4093cf33dd3b51d4ab9e76d0da9::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInit1467e4093cf33dd3b51d4ab9e76d0da9::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit1467e4093cf33dd3b51d4ab9e76d0da9::$classMap;
 
         }, null, ClassLoader::class);
     }

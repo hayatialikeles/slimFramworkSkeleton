@@ -1,21 +1,23 @@
 <?php
 class db extends general
 {
+    private $host="192.168.1.4";
+    private $dbName="maxicanal";
     private $username="root";
-    private $password="";
-    private $dbName="";
-    private $host="localhost";
+    private $password="mypass123";
 
     public function connection(){
-        
-        try {
+        try 
+        {
             $dbh = new PDO('mysql:host='.$this->host.';dbname='.$this->dbName.';charset=utf8', $this->username,$this->password,array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
             return $dbh;
-        } catch (PDOException $e) {
+        } catch (PDOException $e) 
+        {
             print "Hata!: " . $e->getMessage() . "<br/>";
             return null;
         }
      }
+
     public function executeQuery($sql,$parameters_array){
         try{
             $get_row = $this->connection()->prepare($sql);
@@ -57,7 +59,7 @@ class db extends general
             return null;
         }
      }
-    public function getTable($sql,$paramters){
+    public function getTable($sql,$paramters=array()){
         try{
             $statement = $this->connection()->prepare($sql);
             $statement->execute($paramters);
@@ -68,7 +70,7 @@ class db extends general
             return null;
         }
      }
-    public function getTableSingleRow($sql,$paramters){
+    public function getSingleCell($sql,$paramters=array()){
         try{
 
             $statement = $this->connection()->prepare($sql);
@@ -81,6 +83,4 @@ class db extends general
             return null;
         }
      }
-    
-    
 }

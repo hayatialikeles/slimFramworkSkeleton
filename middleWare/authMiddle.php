@@ -1,6 +1,8 @@
 <?php
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use \Firebase\JWT\jwt;
+date_default_timezone_set('Europe/Istanbul');
 
 $app->options('/{routes:.+}', function ($request, $response, $args) {
     return $response;
@@ -16,18 +18,28 @@ $app->add(function ($req, $res, $next) {
 
 // auth middle ware 
 $AuthMiddleWare=function ($request, $response, $next) {
-    
-    if($request->getparam('uid') && $request->getparam('token'))
+    $model=new db();
+    if($request->getparam('token'))
     {
-        $userId=filter_var($request->getparam('uid'),FILTER_SANITIZE_NUMBER_INT);
-        $token=filter_var($request->getparam('token'),FILTER_SANITIZE_STRING);
+        try {
 
-        // user control
+            $token=$request->getparam('token');
+            $decoded = JWT::decode($token, "65EC4£>B£AFA6?=(14CF745CC9BA8*09%!'A78A4A", array('HS256'));
+            $request->withAttribute("id",$decoded->data->id);
+            return $next($request,$response);
+        }
+        catch (Exception $e) {
+            return $model->returnResult(
+                null,
+                $e->getMessage(),
+                $response
+            );
+        }
        
     }else{
-        return $Model->returnResult(
+        return $model->returnResult(
             null,
-            "KULLANICI BİLGİLERİ UZAK SUNUCUYA İLETİLEMEDİ !",
+            "KULLANICI GÜVENLİK KODUNUZ UZAK SUNUCUYA İLETİLEMEDİ !",
             $response
         );
     }

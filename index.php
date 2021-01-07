@@ -8,8 +8,9 @@ $app =new \Slim\App(array(
 ));
 
 
-// Interfaces
 
+
+// Interfaces
 require_once './interfaces/IGeneral.php';
 require_once './interfaces/IGeneralFile.php';
 
@@ -17,11 +18,18 @@ require_once './interfaces/IGeneralFile.php';
 require_once './class/general.php';
 require_once './class/db.php';
 
+// helpers
+require_once './helper/ImageHelper.php';
+require_once './helper/logsHelper.php';
+require_once './helper/userHelper.php';
+
 // MiddleWare
 require_once './middleWare/authMiddle.php';
 
 // Models
 require_once './models/userModel.php';
+
+
 
 
 // Controller
