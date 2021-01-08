@@ -70,7 +70,7 @@ class general
             $uppercase = preg_match('@[A-Z]@', $password);
             $lowercase = preg_match('@[a-z]@', $password);
             $number    = preg_match('@[0-9]@', $password);
-            if(!$uppercase || !$lowercase || !$number) {
+            if($uppercase && $lowercase && $number) {
                 return array(
                     "state"=>true,
                     "message"=>"password is verify"

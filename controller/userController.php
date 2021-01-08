@@ -21,7 +21,7 @@ $app->post("/user/get/single",function (Request $request,Response $response){
 $app->post("/user/add",function (Request $request,Response $response){
     $Model=new userModel();
     return $Model->Add($request,$response);
-})->add($AuthMiddleWare);
+});//->add($AuthMiddleWare);
 
 $app->post("/user/edit",function (Request $request,Response $response){
     $Model=new userModel();

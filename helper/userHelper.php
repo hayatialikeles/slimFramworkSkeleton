@@ -45,13 +45,14 @@ class userHelper extends db {
         }
     }
     public function authControl($username,$password){
-
         if($this->checkUsername($username))
         {
-            $userData=$this->getSingleCell("SELECT * FROM users where username=? and `password`=?",array(
+
+            $userData=$this->getSingleRow("SELECT * FROM users where username=? and `password`=?",array(
                 $username, 
                 $this->passwordHash($password)
             ));
+
             if($userData["id"]>0)
             {
                 $key = "65EC4£>B£AFA6?=(14CF745CC9BA8*09%!'A78A4A"; // bu bizim oluşturacağımız bi nevi şifremiz
@@ -98,22 +99,29 @@ class userHelper extends db {
         {
             if(!$this->checkEmail($email))
             {
-
                 $passValidate=$this->passwordValidate($password);
                 if($passValidate["state"])
                 {
-
-                    $this->executeQuery("INSERT INTO users SET username=?,`password`=?,email=?,phone=?,addDate=now(),addId=?",
+                   $state=$this->executeQuery("INSERT INTO users SET username=?,`password`=?,email=?,phone=?,addDate=now(),addId=?",
                     array(
                         $username,
                         $this->passwordHash($password),
                         $email,
                         $phone,
-                        $userId
+                        1//$userId
                     ));
-                    return array(
-                        "state"=>true,
-                    );
+                    if($state)
+                    {
+                        return array(
+                            "state"=>true,
+                        );
+                    }else{
+                        return array(
+                            "state"=>false,
+                            "message"=>"proccess is fail !"
+                        );
+                    }
+                    
                 }else{
                     return array(
                         "state"=>false,
