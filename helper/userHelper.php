@@ -94,7 +94,6 @@ class userHelper extends db {
             );
         }
     }
-
     public function add($username,$password,$email,$phone,$userId){
         if(!$this->checkUsername($username))
         {
