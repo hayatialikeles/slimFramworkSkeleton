@@ -64,6 +64,30 @@ class general
     public function passwordHash($pass){
          return md5(md5(md5(md5($pass))));
      }
+    public function passwordValidate($password){
+        if(strlen($password)>8)
+        {
+            $uppercase = preg_match('@[A-Z]@', $password);
+            $lowercase = preg_match('@[a-z]@', $password);
+            $number    = preg_match('@[0-9]@', $password);
+            if(!$uppercase || !$lowercase || !$number) {
+                return array(
+                    "state"=>true,
+                    "message"=>"password is verify"
+                );
+            }else{
+                return array(
+                    "state"=>false,
+                    "message"=>"Password must contain 1 uppercase letter, 1 lowercase letter and a number in it !"
+                ); 
+            }
+        }else{
+            return array(
+                "state"=>false,
+                "message"=>"password length must be at least 8 characters !"
+            );    
+        }
+    }
     public function deleteFile($fileRoad){
         if(file_exists($fileRoad))
         {

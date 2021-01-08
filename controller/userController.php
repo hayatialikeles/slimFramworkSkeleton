@@ -15,7 +15,6 @@ $app->post("/user/get/all",function (Request $request,Response $response){
 
 $app->post("/user/get/single",function (Request $request,Response $response){
     $Model=new userModel();
-    echo 1;
     return $Model->GetAll($request,$response);
 })->add($AuthMiddleWare);
 

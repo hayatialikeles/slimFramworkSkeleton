@@ -7,7 +7,7 @@ class ImageModel extends db {
     private $fileType=["png","jpg","jpeg","gif"];
 
     private function checkTable(){
-        if(empty($this->queryNameString("SELECT count(id) FROM images")))
+        if(empty($this->getSingleCell("SELECT count(id) FROM images")))
         {
             $this->executeQuery("
             CREATE TABLE `images` (

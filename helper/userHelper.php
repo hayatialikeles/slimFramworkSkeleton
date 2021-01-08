@@ -8,11 +8,10 @@ class userHelper extends db {
     private $password='';
     private $email='';
     private $phone='';
-
-    private $userId="";
+    private $id="";
 
     public function checkTable(){
-        if(empty($this->queryNameString("SELECT count(id) FROM users"))){
+        if(empty($this->getSingleCell("SELECT count(id) FROM users"))){
             $this->executeQuery("
             CREATE TABLE `users` (
                 `id` int(11) NOT NULL,
@@ -35,13 +34,13 @@ class userHelper extends db {
     }
     public function __construct($userId="0"){
         $this->checkTable();
-        
-        $this->userId=$userId;
-        if($this->userId>0)
+        $this->id=$userId;
+        if($this->id>0)
         {
             $userData=$this->getUserDetail();
             $this->username=$userData["username"];
             $this->email=$userData["email"];
+            $this->password=$userData["password"];
             $this->phone=$userData["phone"];
         }
     }
@@ -99,17 +98,28 @@ class userHelper extends db {
         {
             if(!$this->checkEmail($email))
             {
-                echo $this->executeQuery("INSERT INTO users SET username=?,`password`=?,email=?,phone=?,addDate=now(),addId=?",
-                array(
-                    $username,
-                    $this->passwordHash($password),
-                    $email,
-                    $phone,
-                    $userId
-                ));
-                return array(
-                    "state"=>true,
-                );
+
+                $passValidate=$this->passwordValidate($password);
+                if($passValidate["state"])
+                {
+
+                    $this->executeQuery("INSERT INTO users SET username=?,`password`=?,email=?,phone=?,addDate=now(),addId=?",
+                    array(
+                        $username,
+                        $this->passwordHash($password),
+                        $email,
+                        $phone,
+                        $userId
+                    ));
+                    return array(
+                        "state"=>true,
+                    );
+                }else{
+                    return array(
+                        "state"=>false,
+                        "message"=>$passValidate["message"]
+                    );
+                }
             }else{
                 return array(
                     "state"=>false,
@@ -125,13 +135,13 @@ class userHelper extends db {
 
     }
     public function checkUsername($username){
-        return $this->queryNameParameterString("SELECT * FROM users where username=?",$username) ? true :false;
+        return $this->getSingleCell("SELECT * FROM users where username=?",$username) ? true :false;
     }
     public function checkEmail($email){
-        return $this->queryNameParameterString("SELECT * FROM users where username=?",$email) ? true :false;
+        return $this->getSingleCell("SELECT * FROM users where username=?",$email) ? true :false;
     }
     public function getUserDetail(){
-        return $this->getSingleCell("SELECT * FROM users where id=?",array($this->userId));
+        return $this->getSingleCell("SELECT * FROM users where id=?",array($this->id));
     }
     public function getEmail(){
         return $this->email;
@@ -141,6 +151,41 @@ class userHelper extends db {
     }
     public function getPhoneNumber(){
         return $this->phone;
+    }
+    public function setPassword($oldPass,$newPass){
+        if($this->password==$oldPass)
+        {
+            $passValidate=$this->passwordValidate($newPass);
+            if($passValidate["state"])
+            {
+                $state=$this->executeQuery("UPDATE users SET `password`=? where id=?",array(
+                    $this->passwordHash($newPass),
+                    $this->id
+                )) ? true : false;
+                if($state)
+                {
+                    return array(
+                        "state"=>true,
+                        "message"=>"İŞLEM BAŞARILI !"
+                    );
+                }else{
+                    return array(
+                        "state"=>false,
+                        "message"=>"İŞLEM BAŞARISIZ !"
+                    );
+                }
+            }else{
+                return array(
+                    "state"=>false,
+                    "message"=>$passValidate["message"]
+                );
+            } 
+        }else{
+            return array(
+                "state"=>false,
+                "message"=>"old password is not valid !"
+            );
+        }
     }
     public function getList(){
         return $this->getTable("SELECT id,username,email,phone,addDate FROM users");

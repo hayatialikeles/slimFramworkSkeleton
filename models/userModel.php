@@ -3,7 +3,6 @@ class UserModel extends db
 {
     public function GetAll($request,$response){
         $userHelper=new userHelper();
-
         return $this->returnResult(
             $userHelper->getList(),
             "İŞLEM BAŞARILI",
@@ -34,9 +33,6 @@ class UserModel extends db
             );
         }
     }
-    public function GetSingle($request,$response){
-
-    }
 
     public function Add($request,$response){
         if(
@@ -53,7 +49,7 @@ class UserModel extends db
                 $request->getparam("password"),
                 $request->getparam("email"),
                 $request->getparam("phone"),
-                $request->getparam("id")
+                $request->getAttribute("id")
             );
 
             if($addState["state"])
@@ -79,6 +75,7 @@ class UserModel extends db
 
     }
     public function Edit($request,$response){
+        
     }
     public function Remove($request,$response){
     }

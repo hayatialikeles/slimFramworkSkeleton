@@ -20,7 +20,7 @@ require_once './class/db.php';
 
 // helpers
 require_once './helper/ImageHelper.php';
-require_once './helper/logsHelper.php';
+require_once './helper/settingsHelper.php';
 require_once './helper/userHelper.php';
 
 // MiddleWare

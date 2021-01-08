@@ -5,22 +5,31 @@ class db extends general
     private $dbName="maxicanal";
     private $username="root";
     private $password="mypass123";
+    private $dbh=null;
 
-    public function connection(){
+    public function __construct(){
+        $this->connection();
+    }
+
+    private function connection()
+    {
         try 
         {
-            $dbh = new PDO('mysql:host='.$this->host.';dbname='.$this->dbName.';charset=utf8', $this->username,$this->password,array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
-            return $dbh;
+            $this->dbh = new PDO('mysql:host='.$this->host.';dbname='.$this->dbName.';charset=utf8', $this->username,$this->password,array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
         } catch (PDOException $e) 
         {
             print "Hata!: " . $e->getMessage() . "<br/>";
             return null;
         }
-     }
+    }
 
-    public function executeQuery($sql,$parameters_array){
+    public function executeQuery($sql,$parameters_array=array()){
         try{
-            $get_row = $this->connection()->prepare($sql);
+            if($this->dbh==null)
+            {
+                $this->connection();
+            }
+            $get_row = $this->dbh->prepare($sql);
             if ($get_row->execute($parameters_array)){
                 return 1;
             }
@@ -33,26 +42,22 @@ class db extends general
             return null;
         }
      }
-
-    public function queryNameString($sql){
-        try{
-            $get_row = $this->connection()->prepare($sql);
-            $get_row->execute();
-            $row = $get_row->fetch();
-            return $row[0];
-        }catch (PDOException $e)
-        {
-            print_r($e->getMessage());
-            return null;
-        }
-     }
     
-	public function queryNameParameterString($sql,$parameter){
+	public function getSingleCell($sql,$parameter=null){
         try{
-            $get_row = $this->connection()->prepare($sql);
-            $get_row->execute(array($parameter));
+            if($this->dbh==null)
+            {
+                $this->connection();
+            }
+            $get_row = $this->dbh->prepare($sql);
+            if($parameter!=null)
+                $get_row->execute(array($parameter));
+            else
+                $get_row->execute();
+
             $row = $get_row->fetch();
             return $row[0];
+
         }catch (PDOException $e)
         {
             print_r($e->getMessage());
@@ -61,7 +66,11 @@ class db extends general
      }
     public function getTable($sql,$paramters=array()){
         try{
-            $statement = $this->connection()->prepare($sql);
+            if($this->dbh==null)
+            {
+                $this->connection();
+            }
+            $statement = $this->dbh->prepare($sql);
             $statement->execute($paramters);
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         }catch (PDOException $e)
@@ -70,10 +79,13 @@ class db extends general
             return null;
         }
      }
-    public function getSingleCell($sql,$paramters=array()){
+    public function getSingleRow($sql,$paramters=array()){
         try{
-
-            $statement = $this->connection()->prepare($sql);
+            if($this->dbh==null)
+            {
+                $this->connection();
+            }
+            $statement = $this->dbh->prepare($sql);
             $statement->execute($paramters);
             return $statement->fetch(PDO::FETCH_ASSOC);
 
