@@ -87,13 +87,11 @@ class general
                 "message"=>"password length must be at least 8 characters !"
             );    
         }
-    }
+     }
     public function deleteFile($fileRoad){
         if(file_exists($fileRoad))
         {
             unlink($fileRoad);
         }
     }
-   
-
 }

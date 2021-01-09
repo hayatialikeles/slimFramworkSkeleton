@@ -1,5 +1,5 @@
 <?php
-class db extends general
+class db extends errorShorten
 {
     private $host="192.168.1.4";
     private $dbName="maxicanal";

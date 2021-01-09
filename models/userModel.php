@@ -42,7 +42,6 @@ class UserModel extends db
             $request->getparam("phone")
         )
         {
-
             $userHelper=new userHelper();
             $addState=$userHelper->add(
                 $request->getparam("username"),
@@ -51,16 +50,9 @@ class UserModel extends db
                 $request->getparam("phone"),
                 $request->getAttribute("id")
             );
-
             if($addState["state"])
             {
-                return $this->returnResult(
-                    null,
-                    "İŞLEM BAŞARILI",
-                    $response,
-                    true
-                );
-
+                return $this->getSuccess(null,$response);
             }else{
                 return $this->returnResult(
                     null,
@@ -69,14 +61,95 @@ class UserModel extends db
                 );
             }
         }else{
+            return $this->getParameterError($response);
+        }
+    }
 
+    public function setEmail($request,$response){
+        if($request->getparam('email'))
+        {
+
+            $model=new userHelper($request->getAttribute("id"));
+            $editState=$model->setEmail($request->getparam("email"));
+            if($editState["state"])
+            {
+                return $this->getSuccess(null,$response);
+            }else{
+                return $this->returnResult(
+                    null,
+                    $editState["message"],
+                    $response
+                );
+            }
+        }else{
+            return $this->getParameterError($response);
         }
 
+    }
+    public function setPassword($request,$response){
+        if(
+            $request->getparam('oldpassword') &&
+            $request->getparam('newpassword')
+        )
+        {
+
+            $model=new userHelper($request->getAttribute("id"));
+            $editState=$model->setPassword(
+                filter_var($request->getparam("oldpassword"),FILTER_SANITIZE_STRING),
+                filter_var($request->getparam("newpassword"),FILTER_SANITIZE_STRING)
+            );
+
+            if($editState["state"])
+            {
+                return $this->getSuccess(null,$response);
+            }else{
+                return $this->returnResult(
+                    null,
+                    $editState["message"],
+                    $response
+                );
+            }
+        }else{
+            return $this->getParameterError($response);
+        }
 
     }
     public function Edit($request,$response){
-        
+        if(
+            $request->getparam("username") && 
+            $request->getparam("password") && 
+            $request->getparam("phone") && 
+            $request->getparam("email") 
+        ){
+            $model=new userHelper($request->getAttribute("id"));
+            $editState=$model->edit(
+                $request->getparam("username"),
+                $request->getparam("password"),
+                $request->getparam("email"),
+                $request->getparam("phone")
+            );
+            if($editState["state"])
+            {   
+                return $this-> getSuccess(null,$response);
+            }else{
+                return $this->returnResult(
+                    null,
+                    $editState["message"],
+                    $response
+                );
+            }
+
+        }else{
+            return $this->getParameterError($response);
+        }
     }
-    public function Remove($request,$response){
+    public function Delete($request,$response){
+        $userHelper=new userHelper($request->getAttribute("id"));
+        if($userHelper->delete())
+        {
+            $this->getSuccess(null,$response);
+        }else{
+            $this->getProccesFail($response);
+        }
     }
 }

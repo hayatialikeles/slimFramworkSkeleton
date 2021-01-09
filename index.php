@@ -16,7 +16,9 @@ require_once './interfaces/IGeneralFile.php';
 
 // Class
 require_once './class/general.php';
+require_once './class/errorShorten.php';
 require_once './class/db.php';
+
 
 // helpers
 require_once './helper/ImageHelper.php';

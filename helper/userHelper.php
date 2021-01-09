@@ -32,12 +32,20 @@ class userHelper extends db {
             ",array());
         }
     }
+    public function checkUsername($username){
+        return $this->getSingleCell("SELECT * FROM users where username=?",$username) ? true :false;
+    }
+    public function checkEmail($email){
+        return $this->getSingleCell("SELECT * FROM users where username=?",$email) ? true :false;
+    }
+
+
     public function __construct($userId="0"){
         $this->checkTable();
         $this->id=$userId;
         if($this->id>0)
         {
-            $userData=$this->getUserDetail();
+            $userData=$this->getSingle();
             $this->username=$userData["username"];
             $this->email=$userData["email"];
             $this->password=$userData["password"];
@@ -94,6 +102,14 @@ class userHelper extends db {
             );
         }
     }
+
+
+    public function getList(){
+        return $this->getTable("SELECT id,username,email,phone,addDate FROM users");
+    }
+    public function getSingle(){
+        return $this->getSingleRow("SELECT * FROM users where id=?",array($this->id));
+    }
     public function add($username,$password,$email,$phone,$userId){
         if(!$this->checkUsername($username))
         {
@@ -108,7 +124,7 @@ class userHelper extends db {
                         $this->passwordHash($password),
                         $email,
                         $phone,
-                        1//$userId
+                        $userId
                     ));
                     if($state)
                     {
@@ -142,26 +158,111 @@ class userHelper extends db {
         }
 
     }
-    public function checkUsername($username){
-        return $this->getSingleCell("SELECT * FROM users where username=?",$username) ? true :false;
+    public function edit($username,$password,$email,$phone){
+        if(!$this->checkUsername($username) || $username==$this->username)
+        {
+            if(!$this->checkEmail($email) || $email==$this->email)
+            {
+                $passValidate=$this->passwordValidate($password);
+                if($passValidate["state"])
+                {
+                   $state=$this->executeQuery("UPDATE users SET username=?,`password`=?,email=?,phone=? where id=?",
+                    array(
+                        $username,
+                        $this->passwordHash($password),
+                        $email,
+                        $phone,
+                        $this->id
+                    ));
+                    if($state)
+                    {
+                        return array(
+                            "state"=>true,
+                        );
+                    }else{
+                        return array(
+                            "state"=>false,
+                            "message"=>"proccess is fail !"
+                        );
+                    }
+                    
+                }else{
+                    return array(
+                        "state"=>false,
+                        "message"=>$passValidate["message"]
+                    );
+                }
+            }else{
+                return array(
+                    "state"=>false,
+                    "message"=>"email is used by another user"
+                );
+            }
+        }else{
+            return array(
+                "state"=>false,
+                "message"=>"username is used by another user"
+            );
+        }
+
     }
-    public function checkEmail($email){
-        return $this->getSingleCell("SELECT * FROM users where username=?",$email) ? true :false;
+    public function delete(){
+        return $this->executeQuery("DELETE FROM users where id=?",array($this->id));
     }
-    public function getUserDetail(){
-        return $this->getSingleCell("SELECT * FROM users where id=?",array($this->id));
-    }
+
+    
+    
     public function getEmail(){
         return $this->email;
     }
-    public function getUsername(){
-        return $this->username;
-    }
+    public function setEmail($email){
+        if(filter_var($email,FILTER_VALIDATE_EMAIL))
+        {
+            $this->email=$email;
+            if($this->executeQuery("UPDATE users SET email=? where id=?",array(
+                $this->email,
+                $this->id
+            )))
+            {
+                return array(
+                    "state"=>true,
+                    "message"=>"Proccess is successfull"
+                );
+            }else{
+                return array(
+                    "state"=>false,
+                    "message"=>"Proccess is fail !"
+                );
+            }
+            
+        }else{
+            return array(
+                "state"=>false,
+                "message"=>"email format is not valid !"
+            );
+        }
+
+    }  
+
     public function getPhoneNumber(){
         return $this->phone;
     }
+    public function setPhoneNumber($phoneNumber){
+        $this->phone=$phoneNumber;
+        $this->executeQuery("UPDATE users SET phone=? where id=?",array(
+            $this->phone,
+            $this->id
+        ));
+        return array(
+            "state"=>true
+        );
+    }
+
+    public function getUsername(){
+        return $this->username;
+    }
     public function setPassword($oldPass,$newPass){
-        if($this->password==$oldPass)
+        if($this->password==$this->passwordHash($oldPass))
         {
             $passValidate=$this->passwordValidate($newPass);
             if($passValidate["state"])
@@ -195,7 +296,5 @@ class userHelper extends db {
             );
         }
     }
-    public function getList(){
-        return $this->getTable("SELECT id,username,email,phone,addDate FROM users");
-    }
+    
 }
