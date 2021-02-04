@@ -1,8 +1,8 @@
 <?php
 class db extends errorShorten
 {
-    private $host="192.168.1.4";
-    private $dbName="maxicanal";
+    private $host="192.168.1.7";
+    private $dbName="marmarasondaj";
     private $username="root";
     private $password="mypass123";
     private $dbh=null;
